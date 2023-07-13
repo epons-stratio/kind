@@ -1,6 +1,6 @@
 = Architecture
 
-Reference Architecture
+Reference architecture
 
 image::eks-reference-architecture.png[]
 
@@ -16,12 +16,12 @@ In a *default deployment*, the following objects are created in AWS (you can see
 ** [silver]#3 private subnets (also one per AZ).#
 * [silver]#1 NAT gateway for each public subnet.#
 * [silver]#1 Internet gateway for the VPC.#
-* [silver]#1 default route in the routing table of each private _subnet_ to go out to the Internet through the NAT gateways.#
+* [silver]#1 default route in the routing table of each private subnet to go out to the Internet through the NAT gateways.#
 * [silver]#1 default route in the routing table of each public subnet to exit the internet through the internet gateway.#
 * 1 IAM policy for the nodes of the cluster (_nodes.cluster-api-provider-aws.sigs.k8s.io_).
 * 1 IAM role for cluster nodes (_nodes.cluster-api-provider-aws.sigs.k8s.k8s.io_).
 * 1 Elastic Kubernetes Service (EKS) cluster with add-ons for EBS and CNI, logging (if specified) and an OIDC provider.
-** 2 EKS Security Groups for the control-plane and the _Worker_ nodes.
+** 2 EKS Security Groups for the control-plane and the worker nodes.
 ** 1 IAM role with AmazonEKSClusterPolicy.
 * VMs for _Workers_ (according to cluster descriptor and auto-scaling).
 ** 1 EBS volume per persistent volume.
@@ -31,7 +31,7 @@ In a *default deployment*, the following objects are created in AWS (you can see
 
 === GCP
 
-* 1 SSL/TCP load balancer for the APIserver.
+* 1 SSL/TCP load balancer for the API Server.
 * 1 Health check for the _Unmanage Instance Group_.
 * 1 CloudNat VPC partner.
 * 1 Cloud Router.
@@ -53,17 +53,17 @@ Since pods running on an AWS node can impersonate the node where they run by sim
 
 In turn, the EKS OIDC provider is enabled to allow the use of IAM roles for _Service Accounts_, ensuring the use of the IAM policies with minimal privileges.
 
-=== Access to the API server endpoint
+=== Access to the API Server endpoint
 
 ==== EKS
 
-During the creation of the EKS cluster, an endpoint is created for the API server. This endpoint is used to access the cluster from the installer and lifecycle operations.
+During the creation of the EKS cluster, an endpoint is created for the API Server. This endpoint is used to access the cluster from the installer and lifecycle operations.
 
 This endpoint is also published on the internet, and its access is restricted with a combination of AWS IAM (Identity and Access Management) rules, and Kubernetes' native RBAC (Role Based Access Control).
 
 ==== GCP
 
-For API server exposure, a load balancer is created with the name `<cluster_id>-apiserver`. It has the port 443 accessible by the public network (the assigned public IP is the same as configured in the _Kubeconfig_) and one _instance groups_ per AZ (1 or 3, depending on HA configuration) with the corresponding _control-plane_ node.
+For API Server exposure, a load balancer is created with the name `<cluster_id>-apiserver`. It has port 443 accessible by the public network (the assigned public IP is the same as configured in the _Kubeconfig_) and one _instance group_ per AZ (1 or 3, depending on HA configuration) with the corresponding _control-plane_ node.
 
 The _Health Check_ of the service is done via SSL, but it is recommended to change to HTTPS with the `/healthz` path.
 

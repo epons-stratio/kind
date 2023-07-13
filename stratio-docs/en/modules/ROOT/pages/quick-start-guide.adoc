@@ -5,7 +5,7 @@
 === Prerequisites
 
 * For a user with the required privileges in AWS:
-** Create user for installation.
+** Create a user for installation.
 ** Create policy according to xref:attachment$stratio-eks-policy.json[_stratio-eks-policy.json_].
 ** Create policy according to xref:attachment$stratio-eks-temp-policy.json[_stratio-eks-policy.json_] (for provisioning only).
 ** Attach policies to the user.
@@ -39,9 +39,9 @@ Likewise, *groups of worker nodes* can be indicated with the following options:
 ** _encrypted_: disk encryption (default: _false_).
 * _ssh$$_$$key_: SSH key for node access (optional). Must exist in the provider.
 * _spot_: indicates if the instance is of spot type (optional).
-* _node$$_$$image_: image of the worker nodes (optional). The indicated image must exist and be compatible with EKS.
+* _node$$_$$image_: the image of the worker nodes (optional). The indicated image must exist and be compatible with EKS.
 * _zone$$_$$distribution_: indicates whether the number of nodes must be balanced in the zones or not (default: _balanced_).
-* _az_: zone of the workers group (optional). If specified, only this one will be used for the whole group. This parameter overrides what is specified in _zone$$_$$distribution_.
+* _az_: zone of the worker's group (optional). If specified, only this one will be used for the whole group. This parameter overrides what is specified in _zone$$_$$distribution_.
 
 NOTE: By default, the distribution of nodes will be done in zones a, b and c of the indicated region in a balanced way, therefore, the rest of the division by three of the number of nodes will be discarded. Example: if 'quantity=7' is specified, only 2 nodes will be deployed in each of the zones.
 
@@ -68,7 +68,7 @@ TIP: For more details, see the xref:ROOT:installation.adoc[installation guide].
 
 === Installation
 
-You should run the provisioning and installation of Kubernetes phase, from a Linux machine with internet access and a Docker installed.
+You should run the provisioning and installation of the Kubernetes phase, from a Linux machine with internet access and a Docker installed.
 
 Once you have downloaded the `.tgz` file of the _cloud-provisioner_, proceed to unzip it and run it with the creation parameters:
 
@@ -154,9 +154,9 @@ For this provider, the _control-plane_ will be deployed in virtual machines, the
 
 In the cluster descriptor, groups of worker nodes can be indicated with the following options:
 
-* _name_: group name, cannot be repeated. It must start with "<cluster_name_>-".
+* _name_: group name, cannot be repeated. It must start with "<cluster$$_$$name$$_$$>-".
 * _size_: instance type.
-* _quantity_: number of _workers_ in the group.
+* _quantity_: number of workers in the group.
 * _min$$_$$size_: minimum number of nodes for autoscaling (optional).
 * _max$$_$$size_: maximum number of nodes for autoscaling (optional).
 * _labels_: node labels in Kubernetes (optional).
@@ -166,9 +166,9 @@ In the cluster descriptor, groups of worker nodes can be indicated with the foll
 ** _encrypted_: disk encryption (default: _false_).
 * _ssh$$_$$key_: SSH key for node access (optional). Must exist in the provider.
 * _spot_: indicates if the instance is of type _spot_ (optional).
-* _node$$_$$image_: image of the _worker_ nodes. The indicated image must exist and be compatible with EKS.
+* _node$$_$$image_: the image of the worker nodes. The indicated image must exist and be compatible with EKS.
 * _zone$$_$$distribution_: indicates whether the number of nodes must be balanced in the zones or not (default: _balanced_).
-* _az_: zone of the _workers_ group (optional). If specified, only this one will be used for the whole group. This parameter overrides what is specified in _zone$$_$$distribution_.
+* _az_: zone of the worker's group (optional). If specified, only this one will be used for the whole group. This parameter overrides what is specified in _zone$$_$$distribution_.
 
 NOTE: By default, the distribution of nodes will be done in zones a, b and c of the indicated region in a balanced way, therefore, the rest of the division by three of the number of nodes will be discarded. Example: if 'quantity=7' is specified, only 2 nodes will be deployed in each of the zones.
 
@@ -183,21 +183,21 @@ In order to facilitate the installation of _Stratio KEOS_, in the provisioning p
     flavour: development
 ----
 
-Para cualquier personalización extra, deberá modificarse el fichero antes de ejecutar el _keos-installer_.
+For any extra customization, the file must be modified before running the _keos-installer_.
 
-=== Consideraciones
+=== Considerations
 
 * If you use custom infrastructure, you must indicate the VPC and 3 subnets, one per region zone (a, b and c).
 * The configured Kubernetes version must be the one supported in the indicated images.
-* _worker$$_$$nodes_ cluster names cannot be repeated and must start with "<cluster_name_>-".
+* _worker$$_$$nodes_ cluster names cannot be repeated and must start with "<cluster$$_$$name$$_$$>-".
 
 TIP: For more details, see the xref:ROOT:installation.adoc[installation guide].
 
 == Installation
 
-You should run the provisioning and installation of Kubernetes phase, from a Linux machine with internet access and a Docker installed.
+You should run the provisioning and installation of the Kubernetes phase, from a Linux machine with internet access and a Docker installed.
 
-Once you have downloaded the `.tgz` file of the _cloud-provisioner_, proceed to unzip it and run it with the creation parameters:
+Once you have downloaded the `.tgz` file of the _cloud provisioner_, proceed to unzip it and run it with the creation parameters:
 
 [source,bash]
 ----

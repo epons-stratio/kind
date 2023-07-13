@@ -9,12 +9,11 @@
 For automated provisioning in EKS, it is necessary to execute actions on various AWS services such as ec2, ecr, eks, elasticloadbalancing, etc. While the use or lack of use of these actions will depend on the type of installation, the provider validates that the indicated user has these permissions in order to run normally.
 +
 ** xref:attachment$stratio-eks-policy.json [Download permanent permissions for EKS].
-** xref:attachment$stratio-eks-eks-temp-policy.json[Download temporary permissions for EKS]
-** xref:attachment$stratio-eks-eks-temp-policy.json[Download temporary permissions for EKS]
+** xref:attachment$stratio-eks-temp-policy.json[Download temporary permissions for EKS].
 
 * Certified operating systems
 
-To ensure the functionalities supported by the EKS managed _control-plane_, you should use any AMI provided by AWS specifically for this purpose.
+To ensure the functionalities supported by the EKS-managed _control-plane_, you should use any AMI provided by AWS specifically for this purpose.
 
 The https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html[AMIs optimized for Amazon EKS] are built on the Amazon Linux 2 operating system.
 
@@ -22,7 +21,7 @@ The https://docs.aws.amazon.com/eks/latest/userguide/eks-optimized-ami.html[AMIs
 
 * Permissions
 
-For deployments on Google Cloud Platform, you will require permissions on _compute_ (instances, disks, images, routers, networks, etc.). Similarly to other supported providers, provisioning requires an account with all requested permissions.
+For deployments on the Google Cloud Platform, you will require permissions on _compute_ (instances, disks, images, routers, networks, etc.). Similarly to other supported providers, provisioning requires an account with all requested permissions.
 +
 xref:attachment$stratio-gcp-permissions.list[Download permissions for GCP].
 
@@ -36,7 +35,7 @@ The currently recommended operating system for this provider is Ubuntu 22.04.
 
 Although one of the advantages of automatic resource creation in provisioning is the great dynamism it provides, for security and compliance reasons, it is often necessary to create certain resources prior to the deployment of _Stratio KEOS_ in the cloud provider.
 
-As it will be shown below, the provider aupports the use of both a VPC and subnets previously created using the networks parameter in the cluster descriptor.
+As it will be shown below, the provider supports the use of both a VPC and subnets previously created using the networks parameter in the cluster descriptor.
 
 == Descriptor of the cluster
 
@@ -72,7 +71,7 @@ The _spec_ of the _KeosCluster_ is composed of the following fields:
 |<<credentials, credentials>>
 |Set of cloud provider credentials used in provisioning.
 |See <<descriptor_example,Descriptor_example>>.
-|Not in first run.
+|Not in the first run.
 
 |k8s$$_$$version
 |Kubernetes version of the cluster. It must be aligned with both the cloud provider and _Stratio KEOS_. Note: EKS does not take the patch version into account.
@@ -156,7 +155,7 @@ The following fields are considered provisioning secrets:
 
 As mentioned above, the installer allows you to use network elements of the cloud provider that you have previously created (e.g. by a network security team), thus enabling architectures that best suit your needs.
 
-Both the VPC and the subnets must be created in the cloud provider. The subnets can be private or public, but if they are public, they must have a _NAT gateway_ and an _Internet Gateway_ in the same VPC. If both types of _subnets_ are specified, the worker nodes will be deployed in private subnets.
+Both the VPC and the subnets must be created in the cloud provider. The subnets can be private or public, but if they are public, they must have a _NAT gateway_ and an _Internet Gateway_ in the same VPC. If both types of subnets are specified, the worker nodes will be deployed in private subnets.
 
 _Stratio KEOS_ will not manage the lifecycle of previously created objects.
 
@@ -190,7 +189,7 @@ In this section you will find the specifics for the Kubernetes _control-plane_.
 ^|Name ^|Description ^|Example ^|Optional
 
 |aws
-|Specific values for EKS logging (API server, audit, authenticator, controller$$_$$manager and/or scheduler).
+|Specific values for EKS logging (API Server, audit, authenticator, controller$$_$$manager and/or scheduler).
 
 a|
 [source,bash]
@@ -291,7 +290,7 @@ The parameters for the _keos-installer_ phase will be indicated in this section.
 ^|Name ^|Description ^|Example ^|Optional
 
 |flavour
-|Installation flavor, which indicates cluster size and resiliency. Default is `production`.
+|Installation flavor, which indicates cluster size and resiliency. The default is `production`.
 |development
 |Yes
 
@@ -304,7 +303,7 @@ The parameters for the _keos-installer_ phase will be indicated in this section.
 
 === Descriptor example
 
-In this section, you will find two descriptor cases to demonstrate the capability of the cloud-provisioner in the supported cloud providers.
+In this section, you will find two descriptor cases to demonstrate the capability of the cloud provisioner in the supported cloud providers.
 
 ==== EKS
 
@@ -314,7 +313,7 @@ In this example you can see the following particularities:
 * Kubernetes version 1.24.x (EKS does not take into account the patch version).
 * Use of ECR as Docker registry (no credentials needed).
 * Use of VPC and custom subnets ( previously created). This section is optional.
-* API server logs are enabled in EKS.
+* API Server logs are enabled in EKS.
 * Groups of workers nodes with multiple casuistry:
 ** Several instance types.
 ** With specific AMI (optional for this cloud provider). Note: the versions of the components in the image must be aligned with the Kubernetes version indicated.
@@ -482,7 +481,7 @@ spec:
 
 == Provider
 
-_Cloud-provisioner_ is a tool that facilitates the provisioning of the necessary elements in the specified cloud provider to create a Kubernetes cluster based on the specified <<cluster_descriptor, descriptor>>.
+_Cloud provisioner_ is a tool that facilitates the provisioning of the necessary elements in the specified cloud provider to create a Kubernetes cluster based on the specified <<cluster_descriptor, descriptor>>.
 
 Currently, this binary includes the following options:
 
